@@ -1,13 +1,46 @@
+const path = require('path');
 const express = require('express');
+const session = require('express-session');
+const routes = require('./controllers');
+//Not necessary right now but could be used later if we want to add some variable function such as a favorited icon. 
+// const helpers = require('./utils/helpers');
+
+const sequelize = require('./config/connection');
+
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+
 const app = express();
-const port = 3001;
+const PORT = process.env.PORT || 3001;
 
-app.use(express.static('public'));
+const sess = {
+  secret: 'AslapiBP',
+  cookie: {
+    //This is give the cookie a hour 
+    maxAge: 60*60*1000,
+    //Display type will be http
+    httpOnly: true,
+    // makes it so the cookies can be set over a http connection not just a https connection
+    secure: false,
+    //Cookie stays strictly within this sites domain
+    sameSite: 'strict',
+  },
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize
+  })
+};
 
-app.get('*', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
-    });
+app.use(session(sess));
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// app.use(routes);
+
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => console.log("Server listening on: http://localhost:" + PORT));
 });
