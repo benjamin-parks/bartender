@@ -24,3 +24,5 @@ Comment.belongsTo(User, {
 Comment.belongsTo(Drink, {
     foreignKey: 'drink_id'
 });
+
+module.exports = { User, Favorite, Drink, Comment };
