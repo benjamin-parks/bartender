@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // Bringing in the pages the router will use to conditionally show the appropriate views
 import App from './App';
 import Home from './pages/Home';
+import Login from './pages/Login';
 import "./css/index.css";
 
 
@@ -17,8 +18,13 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
       }
     ],
+  
   },
 ]);
 
