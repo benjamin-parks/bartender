@@ -39,6 +39,14 @@ User.init(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    favorite_drinks: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+          model: 'favorite',
+          key: 'id',
+      },
+  },
 
   },
   {
