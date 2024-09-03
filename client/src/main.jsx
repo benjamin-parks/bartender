@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import User from './components/UserTest';
 import "./css/index.css";
 
 
@@ -22,7 +23,12 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login />,
+      },
+      {
+        path: '/api/users/:username',
+        element: <User />,
       }
+
     ],
   
   },
