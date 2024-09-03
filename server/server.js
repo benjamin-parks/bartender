@@ -1,7 +1,8 @@
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
-const routes = require('./controllers');
+const routes = require('./routes/index');
+const cors = require('cors');
 //Not necessary right now but could be used later if we want to add some variable function such as a favorited icon. 
 // const helpers = require('./utils/helpers');
 
@@ -12,6 +13,14 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: "GET, POST, PUT, DELETE",
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
 
 const sess = {
   secret: 'AslapiBP',
@@ -39,7 +48,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(routes);
+app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log("Server listening on: http://localhost:" + PORT));

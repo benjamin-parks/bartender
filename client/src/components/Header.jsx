@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Tailwind from 'tailwindcss/tailwind.css?inline'
 
 export default function Header() {
     return (
