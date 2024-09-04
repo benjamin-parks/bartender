@@ -22,5 +22,4 @@ const getSingleUser = async (req, res) => {
 };
 
 
-module.exports = { getAllUsers, getSingleUser
- };
+module.exports = { getAllUsers, getSingleUser};
